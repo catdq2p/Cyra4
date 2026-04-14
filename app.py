@@ -385,7 +385,7 @@ if not uploaded:
     c1.info("**Overview**\nCompliance score, risk rating, and response distribution across all 14 domains.")
     c2.info("**By domain**\nDrill into A–N domains with per-question response cards, tier badges, and remarks.")
     c3.info("**Gap analysis**\nAll No / Partial / unanswered items filtered by risk tier for prioritized remediation.")
-    c4.info("**Evidence & Engagement Info**\nEvidence checklist status and engagement/contact information from Part 1.")
+    c4.info("**Evidence & Engagement Info**\nEvidence checklist status and engagement/contact information from questionnaire.")
     st.stop()
 
 # ── Load workbook ──────────────────────────────────────────────────────────────
