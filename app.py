@@ -639,23 +639,29 @@ with tab_domain:
             border = {"No": "#f7c1c1", "Partial": "#FAC775"}.get(norm, "#e9ecef")
             tier_badge = tier_pill(item["tier"]) if item["tier"] else ""
             resp_badge = resp_pill(norm)
-
-            st.markdown(
-                f'<div style="padding:10px 14px;border-radius:8px;margin-bottom:6px;'
-                f'background:{bg};border:0.5px solid {border}">'
-                f'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">'
-                f'<div style="flex:1">'
-                f'<div style="font-size:11px;color:#aaa;margin-bottom:3px">'
-                f'{item["key"]}'
-                f'{("&nbsp;&nbsp;" + tier_badge) if tier_badge else ""}'
-                f'</div>'
-                f'<div style="font-size:13px;color:#333;line-height:1.55">{item["question"]}</div>'
-                f'{("<div style=\\"font-size:12px;color:#555;margin-top:6px;padding-top:6px;border-top:0.5px solid #e9ecef\\">" + item["other"] + "</div>") if item["other"] else ""}'
-                f'</div>'
-                f'<div style="flex-shrink:0;padding-top:2px">{resp_badge}</div>'
-                f'</div>'
-                f'</div>', unsafe_allow_html=True,
+            key_line = item["key"]
+            tier_part = "&nbsp;&nbsp;" + tier_badge if tier_badge else ""
+            remarks_html = (
+                '<div style="font-size:12px;color:#555;margin-top:6px;'
+                'padding-top:6px;border-top:0.5px solid #e9ecef">'
+                + item["other"] + "</div>"
+            ) if item["other"] else ""
+            card_html = (
+                '<div style="padding:10px 14px;border-radius:8px;margin-bottom:6px;'
+                'background:' + bg + ';border:0.5px solid ' + border + '">'
+                '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">'
+                '<div style="flex:1">'
+                '<div style="font-size:11px;color:#aaa;margin-bottom:3px">'
+                + key_line + tier_part +
+                '</div>'
+                '<div style="font-size:13px;color:#333;line-height:1.55">' + item["question"] + '</div>'
+                + remarks_html +
+                '</div>'
+                '<div style="flex-shrink:0;padding-top:2px">' + resp_badge + '</div>'
+                '</div>'
+                '</div>'
             )
+            st.markdown(card_html, unsafe_allow_html=True)
 
             # Long free-text responses
             if item["response"] and len(item["response"]) > 50 and norm not in ("Yes","No","Partial","N/A","—"):
