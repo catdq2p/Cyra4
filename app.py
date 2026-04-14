@@ -379,7 +379,7 @@ with st.sidebar:
 # ── Empty state ────────────────────────────────────────────────────────────────
 if not uploaded:
     st.title("🔐 TPCRA v3.0 Risk Assessment Dashboard")
-    st.markdown("Upload a completed TPCRA v3.0 questionnaire from the sidebar to generate the dashboard.")
+    st.markdown("Upload a completed TPCRA questionnaire from the sidebar to generate the dashboard.")
     st.divider()
     c1, c2, c3, c4 = st.columns(4)
     c1.info("**Overview**\nCompliance score, risk rating, and response distribution across all 14 domains.")
@@ -447,7 +447,7 @@ st.divider()
 
 # ── Tabs ───────────────────────────────────────────────────────────────────────
 tab_overview, tab_domain, tab_gaps, tab_evidence, tab_part1 = st.tabs([
-    "Overview", "By domain", "Gap analysis", "Evidence checklist", "Part 1 — Engagement"
+    "Overview", "By domain", "Gap analysis", "Evidence checklist", "Engagement Info"
 ])
 
 # ══════════════════════════
@@ -804,7 +804,7 @@ with tab_evidence:
 
 
 # ══════════════════════════
-# TAB 5 — PART 1
+# TAB 5 — ENGAGEMENT INFO
 # ══════════════════════════
 with tab_part1:
     if not p1_data or not p1_data.get("items"):
