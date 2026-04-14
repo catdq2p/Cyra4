@@ -375,23 +375,17 @@ with st.sidebar:
         type=["xlsx", "xls"],
         help="Upload a completed TPCRA v3.0 questionnaire."
     )
-    st.divider()
-    st.markdown("""
-**Expected sheets**
-- `Part 1` — Contact & Engagement  
-- `Part 2` — Security Questionnaire  
-- `Evidence` — Evidence Checklist  
 
 # ── Empty state ────────────────────────────────────────────────────────────────
 if not uploaded:
-    st.title("🔐 Third Party Cyber Risk Assessment Dashboard")
-    st.markdown("Upload a completed TPCRA questionnaire from the sidebar to generate the dashboard.")
+    st.title("🔐 TPCRA v3.0 Risk Assessment Dashboard")
+    st.markdown("Upload a completed TPCRA v3.0 questionnaire from the sidebar to generate the dashboard.")
     st.divider()
     c1, c2, c3, c4 = st.columns(4)
     c1.info("**Overview**\nCompliance score, risk rating, and response distribution across all 14 domains.")
     c2.info("**By domain**\nDrill into A–N domains with per-question response cards, tier badges, and remarks.")
     c3.info("**Gap analysis**\nAll No / Partial / unanswered items filtered by risk tier for prioritized remediation.")
-    c4.info("**Evidence & Engagement Info**\nEvidence checklist status and engagement/contact information.")
+    c4.info("**Evidence & Part 1**\nEvidence checklist status and engagement/contact information from Part 1.")
     st.stop()
 
 # ── Load workbook ──────────────────────────────────────────────────────────────
@@ -781,32 +775,32 @@ with tab_evidence:
         for ev in evidence:
             s = ev["status"]
             s_style = "background:#EAF3DE;color:#27500A" if s == "Submitted" else "background:#FAEEDA;color:#633806"
-            rows_html += f"""<tr>
-              <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;color:#aaa;width:4%;vertical-align:top">{ev['num']}</td>
-              <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#333;width:26%;vertical-align:top;font-weight:500">{ev['evidence']}</td>
-              <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;color:#555;width:35%;vertical-align:top;line-height:1.5">{ev['guidance']}</td>
-              <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;width:20%;vertical-align:top">{ev['required_for']}</td>
-              <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;width:15%;vertical-align:top"><span class="response-pill" style="{s_style}">{s}</span></td>
-            </tr>"""
+            rows_html += (
+                "<tr>"
+                '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;color:#aaa;width:4%;vertical-align:top">' + str(ev['num']) + "</td>"
+                '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#333;width:26%;vertical-align:top;font-weight:500">' + str(ev['evidence']) + "</td>"
+                '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;color:#555;width:35%;vertical-align:top;line-height:1.5">' + str(ev['guidance']) + "</td>"
+                '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;width:20%;vertical-align:top">' + str(ev['required_for']) + "</td>"
+                '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;width:15%;vertical-align:top">'
+                '<span class="response-pill" style="' + s_style + '">' + s + "</span></td>"
+                "</tr>"
+            )
 
-        st.markdown(f"""
-        <div style="border:1px solid #e9ecef;border-radius:10px;overflow:hidden">
-          <table style="width:100%;border-collapse:collapse;table-layout:fixed">
-            <thead><tr style="background:#f8f9fa">
-              <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                  text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:4%">#</th>
-              <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                  text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:26%">Evidence required</th>
-              <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                  text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:35%">Guidance</th>
-              <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                  text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:20%">Required for</th>
-              <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                  text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:15%">Status</th>
-            </tr></thead>
-            <tbody>{rows_html}</tbody>
-          </table>
-        </div>""", unsafe_allow_html=True)
+        TH = "padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef"
+        ev_table = (
+            '<div style="border:1px solid #e9ecef;border-radius:10px;overflow:hidden">'
+            '<table style="width:100%;border-collapse:collapse;table-layout:fixed">'
+            '<thead><tr style="background:#f8f9fa">'
+            '<th style="' + TH + ';width:4%">#</th>'
+            '<th style="' + TH + ';width:26%">Evidence required</th>'
+            '<th style="' + TH + ';width:35%">Guidance</th>'
+            '<th style="' + TH + ';width:20%">Required for</th>'
+            '<th style="' + TH + ';width:15%">Status</th>'
+            "</tr></thead>"
+            "<tbody>" + rows_html + "</tbody>"
+            "</table></div>"
+        )
+        st.markdown(ev_table, unsafe_allow_html=True)
 
 
 # ══════════════════════════
@@ -832,29 +826,29 @@ with tab_part1:
                 r = item["response"] or "—"
                 resp_preview = r if len(r) <= 100 else r[:97] + "…"
                 tier_badge = tier_pill(item["tier"]) if item.get("tier") else ""
-                rows_html += f"""<tr>
-                  <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;color:#aaa;width:7%;vertical-align:top">{item['key']}</td>
-                  <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#333;width:48%;vertical-align:top;line-height:1.5">{item['question']}</td>
-                  <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#555;width:35%;vertical-align:top;line-height:1.5">{resp_preview}</td>
-                  <td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;width:10%;vertical-align:top">{tier_badge}</td>
-                </tr>"""
+                rows_html += (
+                    "<tr>"
+                    '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;color:#aaa;width:7%;vertical-align:top">' + item['key'] + "</td>"
+                    '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#333;width:48%;vertical-align:top;line-height:1.5">' + item['question'] + "</td>"
+                    '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;font-size:13px;color:#555;width:35%;vertical-align:top;line-height:1.5">' + resp_preview + "</td>"
+                    '<td style="padding:9px 10px;border-bottom:1px solid #f0f0f0;width:10%;vertical-align:top">' + tier_badge + "</td>"
+                    "</tr>"
+                )
 
-            st.markdown(f"""
-            <div style="border:1px solid #e9ecef;border-radius:10px;overflow:hidden;margin-bottom:1.5rem">
-              <table style="width:100%;border-collapse:collapse;table-layout:fixed">
-                <thead><tr style="background:#f8f9fa">
-                  <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                      text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:7%">#</th>
-                  <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                      text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:48%">Question</th>
-                  <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                      text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:35%">Response</th>
-                  <th style="padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;
-                      text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef;width:10%">Tier</th>
-                </tr></thead>
-                <tbody>{rows_html}</tbody>
-              </table>
-            </div>""", unsafe_allow_html=True)
+            TH2 = "padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:#6c757d;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e9ecef"
+            p1_table = (
+                '<div style="border:1px solid #e9ecef;border-radius:10px;overflow:hidden;margin-bottom:1.5rem">'
+                '<table style="width:100%;border-collapse:collapse;table-layout:fixed">'
+                '<thead><tr style="background:#f8f9fa">'
+                '<th style="' + TH2 + ';width:7%">#</th>'
+                '<th style="' + TH2 + ';width:48%">Question</th>'
+                '<th style="' + TH2 + ';width:35%">Response</th>'
+                '<th style="' + TH2 + ';width:10%">Tier</th>'
+                "</tr></thead>"
+                "<tbody>" + rows_html + "</tbody>"
+                "</table></div>"
+            )
+            st.markdown(p1_table, unsafe_allow_html=True)
 
 st.divider()
-st.caption("Third-Party Cyber Risk Assessment Dashboard  ·  For internal use only")
+st.caption("TPCRA v3.0 — Third-Party Cyber Risk Assessment Dashboard  ·  For internal use only")
