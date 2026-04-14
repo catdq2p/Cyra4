@@ -381,26 +381,6 @@ with st.sidebar:
 - `Part 1` — Contact & Engagement  
 - `Part 2` — Security Questionnaire  
 - `Evidence` — Evidence Checklist  
-- `Score Summary` — Rating Reference  
-- `Selection` — Dropdown Values  
-
-**Part 2 columns**
-| Col | Content |
-|-----|---------|
-| A | Question key (`A.1`, `N.2.1`) |
-| B | Statement / Question |
-| C | Response (`Yes/No/Partial/N/A`) |
-| D | Other Information / Remarks |
-| E | Risk Tier |
-""")
-    st.divider()
-    st.download_button(
-        "⬇ Download sample Excel",
-        data=make_sample_excel(),
-        file_name="sample_TPCRA_v3.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        use_container_width=True,
-    )
 
 # ── Empty state ────────────────────────────────────────────────────────────────
 if not uploaded:
