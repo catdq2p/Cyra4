@@ -371,21 +371,21 @@ def make_sample_excel() -> bytes:
 with st.sidebar:
     st.header("Upload questionnaire")
     uploaded = st.file_uploader(
-        "TPCRA v3.0 Excel (.xlsx)",
+        "Use TPCRA v3.0 questionnaire",
         type=["xlsx", "xls"],
         help="Upload a completed TPCRA v3.0 questionnaire."
     )
 
 # ── Empty state ────────────────────────────────────────────────────────────────
 if not uploaded:
-    st.title("🔐 TPCRA v3.0 Risk Assessment Dashboard")
+    st.title("🔐 Third Party Cyber Risk Assessment Dashboard")
     st.markdown("Upload a completed TPCRA questionnaire from the sidebar to generate the dashboard.")
     st.divider()
     c1, c2, c3, c4 = st.columns(4)
     c1.info("**Overview**\nCompliance score, risk rating, and response distribution across all 14 domains.")
     c2.info("**By domain**\nDrill into A–N domains with per-question response cards, tier badges, and remarks.")
     c3.info("**Gap analysis**\nAll No / Partial / unanswered items filtered by risk tier for prioritized remediation.")
-    c4.info("**Evidence & Part 1**\nEvidence checklist status and engagement/contact information from Part 1.")
+    c4.info("**Evidence & Engagement Info**\nEvidence checklist status and engagement/contact information from Part 1.")
     st.stop()
 
 # ── Load workbook ──────────────────────────────────────────────────────────────
