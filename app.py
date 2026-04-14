@@ -404,14 +404,14 @@ with st.sidebar:
 
 # ── Empty state ────────────────────────────────────────────────────────────────
 if not uploaded:
-    st.title("🔐 TPCRA v3.0 Risk Assessment Dashboard")
-    st.markdown("Upload a completed TPCRA v3.0 questionnaire from the sidebar to generate the dashboard.")
+    st.title("🔐 Third Party Cyber Risk Assessment Dashboard")
+    st.markdown("Upload a completed TPCRA questionnaire from the sidebar to generate the dashboard.")
     st.divider()
     c1, c2, c3, c4 = st.columns(4)
     c1.info("**Overview**\nCompliance score, risk rating, and response distribution across all 14 domains.")
     c2.info("**By domain**\nDrill into A–N domains with per-question response cards, tier badges, and remarks.")
     c3.info("**Gap analysis**\nAll No / Partial / unanswered items filtered by risk tier for prioritized remediation.")
-    c4.info("**Evidence & Part 1**\nEvidence checklist status and engagement/contact information from Part 1.")
+    c4.info("**Evidence & Engagement Info**\nEvidence checklist status and engagement/contact information.")
     st.stop()
 
 # ── Load workbook ──────────────────────────────────────────────────────────────
@@ -877,4 +877,4 @@ with tab_part1:
             </div>""", unsafe_allow_html=True)
 
 st.divider()
-st.caption("TPCRA v3.0 — Third-Party Cyber Risk Assessment Dashboard  ·  For internal use only")
+st.caption("Third-Party Cyber Risk Assessment Dashboard  ·  For internal use only")
